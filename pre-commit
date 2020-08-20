@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require 'time'
+require 'fileutils'
+#system 'npm run test'
+branch = `git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'`
+time = Time.now
+last_commit = `git log -1 --format=%ai`
+last_message = `git log -1 --pretty=%B`.chomp
+lastCommitTime = Time.parse(last_commit)
+diff = time - lastCommitTime
+timeSinceLastCommit = Time.at(diff).strftime("%H:%M:%S")
+timeMessage = "Branch: #{branch.chomp} Time spent on commit: #{timeSinceLastCommit}"
+puts "#{timeMessage}"
+
+location = `pwd`.chomp
+dirs = location.split('/')
+repoIndex = dirs.find_index('git') + 1
+repo = dirs[repoIndex]
+puts "#{repo}"
+
+desktopDir = File.expand_path('~/Desktop')
+fileName = "#{desktopDir}/timesheet.txt"
+
+def writeToFile(message, path)
+  puts "test"
+  File.write(path, message, mode: "a")
+end
+
+if (File.exist?(fileName))
+  puts "Writing commit times to existing #{fileName}"
+  writeToFile("#{repo}: #{timeMessage}", fileName)
+else
+  puts "Writing commit times to new #{fileName}"
+  timeSheetFile = File.new(fileName, "w")
+  writeToFile("#{repo}: #{timeMessage}", fileName)
+end
+
