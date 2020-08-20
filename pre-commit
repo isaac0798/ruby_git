@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'time'
 require 'fileutils'
-#system 'npm run test'
+#system 'npm run test' //add your own tests/cs-fixer/lintin here
 branch = `git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'`
 time = Time.now
 last_commit = `git log -1 --format=%ai`
@@ -14,7 +14,7 @@ puts "#{timeMessage}"
 
 location = `pwd`.chomp
 dirs = location.split('/')
-repoIndex = dirs.find_index('git') + 1
+repoIndex = dirs.find_index('git') + 1 #git/#{projectName}
 repo = dirs[repoIndex]
 puts "#{repo}"
 
