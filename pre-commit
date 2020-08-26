@@ -19,7 +19,7 @@ repo = dirs[repoIndex]
 puts "#{repo}"
 
 desktopDir = File.expand_path('~/Desktop')
-fileName = "#{desktopDir}/timesheet.txt"
+fileName = "#{desktopDir}/#{repo}_#{last_commit}_timesheet.txt"
 
 def writeToFile(message, path)
   puts "test"
