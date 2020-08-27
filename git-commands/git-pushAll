@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+commitMessage = ARGV[0]
+
+`git add .`
+`git commit -m "#{commitMessage}"`
+`git push`
